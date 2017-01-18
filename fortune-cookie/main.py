@@ -14,11 +14,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+# fortune-cookie favicon from: http://www.favicon.cc/?action=icon&file_id=65239
+
 import webapp2
+import random
+
+def fortuneTeller():
+    fortunes = [
+        "You're about to find belly-button lint!",
+        "Someone you know has a crush on you.",
+        "Someone you know is actually a dragon."
+    ]
+    idx = random.randrange(len(fortunes))
+    return fortunes[idx]
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        lucky_num = str(random.randrange(10))
+        style = '<head><link type="text/css" rel="stylesheet" href="/stylesheets/fortune_styles.css" /></head>'
+        buttn = '<p><button><a href = "."> Open another cookie </a></button></p>'
+        self.response.write(style + '<body><p style = "color:red"> &#9786 ' + fortuneTeller() + ' &#9786</p><p> Your lucky number is: ' + lucky_num + '</p>' + buttn + '</body>')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
