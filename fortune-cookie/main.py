@@ -20,11 +20,19 @@
 import webapp2
 import random
 
+style = """
+<head><link type="text/css" rel="stylesheet" href="/stylesheets/fortune_styles.css" /></head>
+"""
+
 def fortuneTeller():
     fortunes = [
         "You're about to find belly-button lint!",
-        "Someone you know has a crush on you.",
-        "Someone you know is actually a dragon."
+        "You will soon meet someone tall and ok.",
+        "Someone you know is actually a dragon.",
+        "You were right about your last argument.",
+        "We're all hoping for the same thing.",
+        "Knowledge is not linear.",
+        "Be extra careful on your way home."
     ]
     idx = random.randrange(len(fortunes))
     return fortunes[idx]
@@ -32,9 +40,8 @@ def fortuneTeller():
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         lucky_num = str(random.randrange(10))
-        style = '<head><link type="text/css" rel="stylesheet" href="/stylesheets/fortune_styles.css" /></head>'
-        buttn = '<p><button><a href = "."> Open another cookie </a></button></p>'
-        self.response.write(style + '<body><p style = "color:red"> &#9786 ' + fortuneTeller() + ' &#9786</p><p> Your lucky number is: ' + lucky_num + '</p>' + buttn + '</body>')
+        buttn = '<br><br><br><p><button><a href = "."> Open another cookie </a></button></p>'
+        self.response.write(style + '<img src = "/images/243___fortune_by_wolfc_stock.jpg" /><div class="container"><p class="red-txt"> &#9786 ' + fortuneTeller() + ' &#9786</p><p class="small-txt"> Your lucky number is: ' + lucky_num + '</p>' + buttn + '</div>')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
